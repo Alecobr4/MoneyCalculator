@@ -71,7 +71,7 @@ public class Desktop extends JFrame {
 
     private JComboBox<Currency> currencySelector() {
         JComboBox<Currency> combo = new JComboBox<>(toArray(currencies));
-        combo.setRenderer(new SwingCurrencyRenderer());
+        combo.setRenderer(new SwingCurrencyRenderer(combo));
         return combo;
     }
 
