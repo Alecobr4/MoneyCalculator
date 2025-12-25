@@ -40,6 +40,7 @@ public class Desktop extends JFrame {
         panel.setLayout(new FlowLayout(CENTER));
         panel.add(inputAmount = amountInput());
         panel.add(inputCurrency = currencySelector());
+        panel.add(swapButton());
         panel.add(outputAmount = amountOutput());
         panel.add(outputCurrency = currencySelector());
         panel.add(calculateButton());
@@ -49,6 +50,12 @@ public class Desktop extends JFrame {
     private Component calculateButton() {
         JButton button = new JButton("Exchange");
         button.addActionListener(e -> commands.get("exchange").execute());
+        return button;
+    }
+
+    private Component swapButton(){
+        JButton button = new JButton("Swap");
+        button.addActionListener(e -> swapCurrencies());
         return button;
     }
 
@@ -84,7 +91,7 @@ public class Desktop extends JFrame {
     }
 
     public MoneyDisplay moneyDisplay() {
-        return money -> outputAmount.setText(money.amount() + "");
+        return money -> outputAmount.setText(String.format("%.2f", money.amount()));
     }
 
     private double inputAmount() {
@@ -105,5 +112,13 @@ public class Desktop extends JFrame {
 
     private Currency outputCurrency() {
         return (Currency) outputCurrency.getSelectedItem();
+    }
+
+    private void swapCurrencies() {
+        Currency input = (Currency) inputCurrency.getSelectedItem();
+        Currency output = (Currency) outputCurrency.getSelectedItem();
+        inputCurrency.setSelectedItem(output);
+        outputCurrency.setSelectedItem(input);
+        commands.get("exchange").execute();
     }
 }
