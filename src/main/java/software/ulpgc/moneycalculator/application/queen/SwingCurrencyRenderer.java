@@ -10,6 +10,16 @@ import java.util.Map;
 public class SwingCurrencyRenderer extends DefaultListCellRenderer {
     private final Map<String, ImageIcon> iconCache = new HashMap<>();
 
+    private final Map<String, String> exceptions = Map.of(
+            "ANG", "cw",
+            "XAF", "cm",
+            "XCD", "ag",
+            "XOF", "sn",
+            "XPF", "pf",
+            "XDR", "un",
+            "XCG", "cw"
+    );
+
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -21,7 +31,7 @@ public class SwingCurrencyRenderer extends DefaultListCellRenderer {
     }
 
     private ImageIcon getIconFor(Currency currency) {
-        String code = currency.code().substring(0,2).toLowerCase();
+        String code = getCountryCode(currency.code());
         if(iconCache.containsKey(code)) {
             return iconCache.get(code);
         }
@@ -34,5 +44,12 @@ public class SwingCurrencyRenderer extends DefaultListCellRenderer {
             iconCache.put(code, null);
             return null;
         }
+    }
+
+    private String getCountryCode(String currencyCode) {
+        if(exceptions.containsKey(currencyCode)) {
+            return exceptions.get(currencyCode);
+        }
+        return currencyCode.substring(0,2).toLowerCase();
     }
 }
