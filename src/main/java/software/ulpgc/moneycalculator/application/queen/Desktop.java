@@ -28,7 +28,7 @@ public class Desktop extends JFrame {
         this.currencies = currencies;
         this.setTitle("Money Calculator");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800,600);
+        this.setSize(800,200);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
@@ -37,14 +37,25 @@ public class Desktop extends JFrame {
 
     private JPanel panel() {
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(CENTER));
-        panel.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
-        panel.add(inputAmount = amountInput());
-        panel.add(inputCurrency = currencySelector());
-        panel.add(swapButton());
-        panel.add(outputAmount = amountOutput());
-        panel.add(outputCurrency = currencySelector());
-        panel.add(calculateButton());
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+
+        JLabel title = new JLabel("Money Calculator");
+        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(title, BorderLayout.NORTH);
+
+        JPanel controlsPanel = new JPanel();
+        controlsPanel.setLayout(new FlowLayout(CENTER));
+        controlsPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        controlsPanel.add(inputAmount = amountInput());
+        controlsPanel.add(inputCurrency = currencySelector());
+        controlsPanel.add(swapButton());
+        controlsPanel.add(outputAmount = amountOutput());
+        controlsPanel.add(outputCurrency = currencySelector());
+        controlsPanel.add(calculateButton());
+
+        panel.add(controlsPanel, BorderLayout.CENTER);
         return panel;
     }
 
