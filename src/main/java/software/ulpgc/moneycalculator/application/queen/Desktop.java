@@ -38,6 +38,7 @@ public class Desktop extends JFrame {
     private JPanel panel() {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(CENTER));
+        panel.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
         panel.add(inputAmount = amountInput());
         panel.add(inputCurrency = currencySelector());
         panel.add(swapButton());
