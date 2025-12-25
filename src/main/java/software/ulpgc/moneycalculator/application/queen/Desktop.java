@@ -53,7 +53,7 @@ public class Desktop extends JFrame {
     }
 
     private JTextField amountInput() {
-        return new JTextField(10);
+        return new JTextField("1", 10);
     }
 
     private JTextField amountOutput() {
@@ -92,7 +92,11 @@ public class Desktop extends JFrame {
     }
 
     private double toDouble(String text) {
-        return Double.parseDouble(text);
+        try{
+            return Double.parseDouble(text);
+        }catch(NumberFormatException e){
+            return 0.0;
+        }
     }
 
     private Currency inputCurrency() {
