@@ -70,7 +70,9 @@ public class Desktop extends JFrame {
     }
 
     private JComboBox<Currency> currencySelector() {
-        return new JComboBox<>(toArray(currencies));
+        JComboBox<Currency> combo = new JComboBox<>(toArray(currencies));
+        combo.setRenderer(new SwingCurrencyRenderer());
+        return combo;
     }
 
     private Currency[] toArray(List<Currency> currencies) {
@@ -121,4 +123,5 @@ public class Desktop extends JFrame {
         outputCurrency.setSelectedItem(input);
         commands.get("exchange").execute();
     }
+
 }
